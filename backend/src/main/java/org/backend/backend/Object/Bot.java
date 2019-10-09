@@ -7,16 +7,17 @@ public class Bot {
 
     private Move move;
     private int depth;
+    private Evaluator evaluator;
 
     public Bot(Move move, int depth){
         this.move = move;
         this.depth = depth;
+        this.evaluator = new Evaluator(move.getGameState().length,move.getGameState()[0].length);
     }
 
     public Bot(Move move){
         this.move = move;
     }
-
 
     public Move getDecision(){
         return miniMax(this.move, this.depth, false);
