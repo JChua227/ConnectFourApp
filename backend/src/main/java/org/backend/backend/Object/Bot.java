@@ -19,6 +19,14 @@ public class Bot {
         this.move = move;
     }
 
+    public Move getMove(){
+        return this.move;
+    }
+
+    public int getDepth(){
+        return this.depth;
+    }
+
     public Move getDecision(){
         return miniMax(this.move, this.depth, false);
     }

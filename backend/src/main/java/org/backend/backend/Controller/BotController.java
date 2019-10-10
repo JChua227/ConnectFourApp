@@ -12,6 +12,6 @@ public class BotController {
     //the grid of the game must always have an odd number of columns
     @PostMapping("/move")
     public Move getMove(@RequestBody Bot bot){
-        return bot.getDecision();
+        return new Bot(bot.getMove(),bot.getDepth()).getDecision();
     }
 }
