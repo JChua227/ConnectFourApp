@@ -46,7 +46,7 @@ public class Bot {
         List<Move> states = possiblePositions(move,player);
 
         if(turn){
-            Move maxEval = new Move(move.getGameState(),-10000);
+            Move maxEval = new Move(move.getGameState(),-100000);
             for(int x=0; x<states.size(); x++){
                 Move evaluation = miniMax(states.get(x),depth-1,!turn);
                 if(maxEval.getRating()<evaluation.getRating()){
@@ -56,7 +56,7 @@ public class Bot {
             return maxEval;
         }
         else{
-            Move minEval = new Move(move.getGameState(),10000);
+            Move minEval = new Move(move.getGameState(),100000);
             for(int x=0; x<states.size(); x++){
                 Move evaluation = miniMax(states.get(x),depth-1,!turn);
                 if(minEval.getRating()>evaluation.getRating()){
@@ -84,21 +84,19 @@ public class Bot {
 
     //TODO: evaluate each position
     public Move evaluatePosition(Move move){
-        int rating = 0;
-
-
-        return new Move(move.getGameState(),rating);
+        int rating = this.evaluator.evaluateState(move);
+        return new Move(move.getGameState(),rating,move.getX(),move.getY());
     }
 
 
     public List<Move> possiblePositions(Move move,int player){
         List<Move> states = new ArrayList<>();
-        for(int x=0; x<move.getGameState()[0].length; x++){
-            int y=move.getGameState().length-1;
+        for(int y=0; y<move.getGameState()[0].length; y++){
+            int x=move.getGameState().length-1;
             boolean columnFilled = false;
-            while(move.getGameState()[y][x]!=0){
-                y--;
-                if(y==-1){
+            while(move.getGameState()[x][y]!=0){
+                x--;
+                if(x==-1){
                     columnFilled=true;
                     break;
                 }
@@ -107,10 +105,9 @@ public class Bot {
                 continue;
             }
             int temp[][] = copy(move.getGameState());
-            temp[y][x]=player;
-            states.add(new Move(temp));
+            temp[x][y]=player;
+            states.add(new Move(temp,x,y));
         }
-
         return states;
     }
 

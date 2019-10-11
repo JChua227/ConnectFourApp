@@ -31,5 +31,12 @@ public class Evaluator {
         }
     }
 
+    //TODO: Create different methods and add it to totalValue
+    public int evaluateState(Move move){
+        int totalValue = 0;
+
+        return totalValue;
+    }
+
 
 }
