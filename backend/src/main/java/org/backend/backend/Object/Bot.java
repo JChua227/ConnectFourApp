@@ -28,21 +28,31 @@ public class Bot {
     }
 
     public Move getDecision(){
+        if(evaluator.gameIsFinished(this.move,1)){
+            return new Move(true);
+        }
+        else if(evaluator.gameIsFinished(this.move,2)){
+            return new Move(false);
+        }
         return miniMax(this.move, this.depth, false);
     }
 
-
     public Move miniMax(Move move, int depth, boolean turn){
-        if(depth==0){
-            return evaluatePosition(move);
-        }
-        if(gameIsFinished(move)){
-
-        }
         int player = 1;
         if(!turn){
             player = 2;
         }
+
+        if(evaluator.gameIsFinished(move,1)){
+            return new Move(move.getGameState(),100000,move.getX(),move.getY());
+        }
+        else if(evaluator.gameIsFinished(move,2)){
+            return new Move(move.getGameState(),-100000,move.getX(),move.getY());
+        }
+        else if(depth==0){
+            return evaluatePosition(move);
+        }
+
         List<Move> states = possiblePositions(move,player);
 
         if(turn){
@@ -66,20 +76,6 @@ public class Bot {
             return minEval;
         }
 
-    }
-
-    //TODO: check if game is finished
-    public boolean gameIsFinished(Move move){
-
-        int count = 0;
-        for(int x=0; x<move.getGameState().length; x++){
-            for(int y=0; y<move.getGameState()[0].length; x++){
-
-            }
-        }
-
-
-        return false;
     }
 
     //TODO: evaluate each position

@@ -7,6 +7,7 @@ public class Move {
     private int rating;
     private int x;
     private int y;
+    private boolean winner;
 
     public Move(int [][]gameState, int rating, int x, int y){
         this.gameState = gameState;
@@ -24,6 +25,10 @@ public class Move {
     public Move(int [][]gameState, int rating){
         this.gameState = gameState;
         this.rating = rating;
+    }
+
+    public Move(boolean winner){
+        this.winner = winner;
     }
 
     public int[][] getGameState(){
