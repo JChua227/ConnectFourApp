@@ -45,9 +45,64 @@ public class Evaluator {
         return sumOfAllSpots;
     }
 
+    //TODO: horizontal 2's, all of vertical, all of diagonals
     public int twoOrThreeInARow(int [][]array){
+        int player1 = 1;
+        int player2 = 2;
+        int openPlay = 0;
         int total = 0;
 
+        //horizontal
+        for(int x=0; x<array.length; x++){
+            for(int y=0; y<array[0].length-3; y++){
+                //3s
+                if(array[x][y]==player1 && array[x][y+1]==player1 && array[x][y+2]==player1 && array[x][y+3]==openPlay){
+                    total += 6;
+                }
+                else if(array[x][y]==player1 && array[x][y+1]==player1 && array[x][y+2]==openPlay && array[x][y+3]==player1){
+                    total += 6;
+                }
+                else if(array[x][y]==player1 && array[x][y+1]==openPlay && array[x][y+2]==player1 && array[x][y+3]==player1){
+                    total += 6;
+                }
+                else if(array[x][y]==openPlay && array[x][y+1]==player1 && array[x][y+2]==player1 && array[x][y+3]==player1){
+                    total += 6;
+                }
+                else if(array[x][y]==player2 && array[x][y+1]==player2 && array[x][y+2]==player2 && array[x][y+3]==openPlay){
+                    total -= 6;
+                }
+                else if(array[x][y]==player2 && array[x][y+1]==player2 && array[x][y+2]==openPlay && array[x][y+3]==player2){
+                    total -= 6;
+                }
+                else if(array[x][y]==player2 && array[x][y+1]==openPlay && array[x][y+2]==player2 && array[x][y+3]==player2){
+                    total -= 6;
+                }
+                else if(array[x][y]==openPlay && array[x][y+1]==player2 && array[x][y+2]==player2 && array[x][y+3]==player2){
+                    total -= 6;
+                }
+                //2s
+                if(array[x][y]==player1 && array[x][y+1]==player1 && array[x][y+2]==openPlay && array[x][y+3]==openPlay){
+                    total += 3;
+                }
+                else if(array[x][y]==openPlay && array[x][y+1]==player1 && array[x][y+2]==player1 && array[x][y+3]==player1){
+                    total += 3;
+                }
+                else if(array[x][y]==openPlay && array[x][y+1]==openPlay && array[x][y+2]==player1 && array[x][y+3]==player1){
+                    total += 3;
+                }
+                else if(array[x][y]==player2 && array[x][y+1]==player2 && array[x][y+2]==openPlay && array[x][y+3]==openPlay){
+                    total -= 3;
+                }
+                else if(array[x][y]==openPlay && array[x][y+1]==player2 && array[x][y+2]==player2 && array[x][y+3]==player2){
+                    total -= 3;
+                }
+                else if(array[x][y]==openPlay && array[x][y+1]==openPlay && array[x][y+2]==player2 && array[x][y+3]==player2){
+                    total -= 3;
+                }
+
+
+            }
+        }
         return total;
     }
 
