@@ -70,10 +70,10 @@ public class Bot {
         }
 
         if(evaluator.gameIsFinished(move,1)){
-            return new Move(move.getGameState(),100000,move.getX(),move.getY());
+            return new Move(move.getGameState(),100000,childX,childY);
         }
         else if(evaluator.gameIsFinished(move,2)){
-            return new Move(move.getGameState(),-100000,move.getX(),move.getY());
+            return new Move(move.getGameState(),-100000,childX,childY);
         }
         else if(depth==0){
             return evaluatePosition(move,childX,childY);
