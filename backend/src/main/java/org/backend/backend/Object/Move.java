@@ -27,6 +27,10 @@ public class Move {
         this.rating = rating;
     }
 
+    public Move(int [][]gameState){
+        this.gameState = gameState;
+    }
+
     public Move(boolean winner){
         this.winner = winner;
     }

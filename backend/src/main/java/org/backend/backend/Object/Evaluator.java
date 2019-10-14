@@ -32,6 +32,7 @@ public class Evaluator {
     }
 
     //TODO: need to evaluate twoSet method ex: [1,1,0,0], [1,0,0,1], [1,0,1,0] etc. for stronger evaluation
+    //TODO: need to evaluate win state for each player
     public int evaluateState(Move move){
         int totalValue = 0;
         totalValue += spotsTaken(move.getGameState());
@@ -43,9 +44,13 @@ public class Evaluator {
         int sumOfAllSpots = 0;
         for(int x=0; x<state.length; x++) {
             for (int y = 0; y < state[0].length; y++) {
+                if(!columnPriority.containsKey(y)){
+                    continue;
+                }
                 if (state[x][y] == 1) {
                     sumOfAllSpots += columnPriority.get(y);
-                } else if (state[x][y] == 2) {
+                }
+                else if (state[x][y] == 2) {
                     sumOfAllSpots -= columnPriority.get(y);
                 }
             }

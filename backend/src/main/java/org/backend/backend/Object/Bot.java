@@ -1,5 +1,6 @@
 package org.backend.backend.Object;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +30,32 @@ public class Bot {
 
     public Move getDecision(){
         if(evaluator.gameIsFinished(this.move,1)){
+            System.out.println("Player1 wins!");
             return new Move(true);
         }
-        else if(evaluator.gameIsFinished(this.move,2)){
+        else if(evaluator.gameIsFinished(this.move,3)){
+            System.out.println("Player2 wins!");
             return new Move(false);
         }
-        return miniMax(this.move, this.depth, false);
+
+        boolean playerTurn = checkPlayerTurn(this.move.getGameState());
+        System.out.println(playerTurn);
+        return miniMax(this.move, this.depth, playerTurn);
+    }
+
+    public boolean checkPlayerTurn(int [][]array){
+        int countOfTurns = 0;
+        for(int x=0; x<array.length; x++){
+            for(int y=0; y<array[0].length; y++){
+                if(array[x][y]==1){
+                    countOfTurns++;
+                }
+                else if(array[x][y]==2){
+                    countOfTurns--;
+                }
+            }
+        }
+        return countOfTurns>0?false:true;
     }
 
     public Move miniMax(Move move, int depth, boolean turn){
