@@ -12,7 +12,12 @@ public class Bot {
 
     public Bot(Move move, int depth){
         this.move = move;
-        this.depth = depth;
+        if(depth<=0){
+            this.depth = 1;
+        }
+        else {
+            this.depth = depth;
+        }
         this.evaluator = new Evaluator(move.getGameState().length,move.getGameState()[0].length);
     }
 
@@ -40,7 +45,7 @@ public class Bot {
 
         boolean playerTurn = checkPlayerTurn(this.move.getGameState());
         System.out.println(playerTurn);
-        return miniMax(this.move, this.depth, playerTurn);
+        return miniMax(this.move, this.depth, playerTurn,0,0);
     }
 
     public boolean checkPlayerTurn(int [][]array){
@@ -58,7 +63,7 @@ public class Bot {
         return countOfTurns>0?false:true;
     }
 
-    public Move miniMax(Move move, int depth, boolean turn){
+    public Move miniMax(Move move, int depth, boolean turn, int childX, int childY){
         int player = 1;
         if(!turn){
             player = 2;
@@ -71,7 +76,7 @@ public class Bot {
             return new Move(move.getGameState(),-100000,move.getX(),move.getY());
         }
         else if(depth==0){
-            return evaluatePosition(move);
+            return evaluatePosition(move,childX,childY);
         }
 
         List<Move> states = possiblePositions(move,player);
@@ -79,7 +84,11 @@ public class Bot {
         if(turn){
             Move maxEval = new Move(move.getGameState(),-999999999);
             for(int x=0; x<states.size(); x++){
-                Move evaluation = miniMax(states.get(x),depth-1,!turn);
+                if(depth==this.depth){
+                    childX = states.get(x).getX();
+                    childY = states.get(x).getY();
+                }
+                Move evaluation = miniMax(states.get(x),depth-1,!turn,childX,childY);
                 if(maxEval.getRating()<evaluation.getRating()){
                     maxEval = evaluation;
                 }
@@ -89,7 +98,11 @@ public class Bot {
         else{
             Move minEval = new Move(move.getGameState(),999999999);
             for(int x=0; x<states.size(); x++){
-                Move evaluation = miniMax(states.get(x),depth-1,!turn);
+                if(depth==this.depth){
+                    childX = states.get(x).getX();
+                    childY = states.get(x).getY();
+                }
+                Move evaluation = miniMax(states.get(x),depth-1,!turn,childX,childY);
                 if(minEval.getRating()>evaluation.getRating()){
                     minEval = evaluation;
                 }
@@ -100,9 +113,9 @@ public class Bot {
     }
 
     //TODO: evaluate each position
-    public Move evaluatePosition(Move move){
+    public Move evaluatePosition(Move move, int childX, int childY){
         int rating = this.evaluator.evaluateState(move);
-        return new Move(move.getGameState(),rating,move.getX(),move.getY());
+        return new Move(move.getGameState(),rating,childX,childY);
     }
 
 
