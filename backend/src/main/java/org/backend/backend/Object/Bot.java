@@ -77,7 +77,7 @@ public class Bot {
         List<Move> states = possiblePositions(move,player);
 
         if(turn){
-            Move maxEval = new Move(move.getGameState(),-100000);
+            Move maxEval = new Move(move.getGameState(),-999999999);
             for(int x=0; x<states.size(); x++){
                 Move evaluation = miniMax(states.get(x),depth-1,!turn);
                 if(maxEval.getRating()<evaluation.getRating()){
@@ -87,7 +87,7 @@ public class Bot {
             return maxEval;
         }
         else{
-            Move minEval = new Move(move.getGameState(),100000);
+            Move minEval = new Move(move.getGameState(),999999999);
             for(int x=0; x<states.size(); x++){
                 Move evaluation = miniMax(states.get(x),depth-1,!turn);
                 if(minEval.getRating()>evaluation.getRating()){
