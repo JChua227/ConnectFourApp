@@ -35,74 +35,102 @@ public class Evaluator {
     public int evaluateState(Move move){
         int totalValue = 0;
         totalValue += spotsTaken(move.getGameState());
-        totalValue += twoOrThreeInARow(move.getGameState());
+        totalValue += threeSet(move.getGameState());
         return totalValue;
     }
 
     public int spotsTaken(int [][]state){
         int sumOfAllSpots = 0;
-
+        for(int x=0; x<state.length; x++) {
+            for (int y = 0; y < state[0].length; y++) {
+                if (state[x][y] == 1) {
+                    sumOfAllSpots += columnPriority.get(y);
+                } else if (state[x][y] == 2) {
+                    sumOfAllSpots -= columnPriority.get(y);
+                }
+            }
+        }
         return sumOfAllSpots;
     }
 
     //TODO: horizontal 2's, all of vertical, all of diagonals
-    public int twoOrThreeInARow(int [][]array){
+    public int threeSet(int [][]array){
         int player1 = 1;
         int player2 = 2;
         int openPlay = 0;
         int total = 0;
 
+        int [][]openWorthPlayer1 = new int[array.length][array[0].length];
+        int [][]openWorthPlayer2 = new int[array.length][array[0].length];
+
         //horizontal
         for(int x=0; x<array.length; x++){
             for(int y=0; y<array[0].length-3; y++){
-                //3s
                 if(array[x][y]==player1 && array[x][y+1]==player1 && array[x][y+2]==player1 && array[x][y+3]==openPlay){
-                    total += 6;
+                    openWorthPlayer1[x][y+3] = 6;
                 }
                 else if(array[x][y]==player1 && array[x][y+1]==player1 && array[x][y+2]==openPlay && array[x][y+3]==player1){
-                    total += 6;
+                    openWorthPlayer1[x][y+2] = 6;
                 }
                 else if(array[x][y]==player1 && array[x][y+1]==openPlay && array[x][y+2]==player1 && array[x][y+3]==player1){
-                    total += 6;
+                    openWorthPlayer1[x][y+1] = 6;
                 }
                 else if(array[x][y]==openPlay && array[x][y+1]==player1 && array[x][y+2]==player1 && array[x][y+3]==player1){
-                    total += 6;
+                    openWorthPlayer1[x][y] = 6;
                 }
                 else if(array[x][y]==player2 && array[x][y+1]==player2 && array[x][y+2]==player2 && array[x][y+3]==openPlay){
-                    total -= 6;
+                    openWorthPlayer2[x][y+3] = -6;
                 }
                 else if(array[x][y]==player2 && array[x][y+1]==player2 && array[x][y+2]==openPlay && array[x][y+3]==player2){
-                    total -= 6;
+                    openWorthPlayer2[x][y+2] = -6;
                 }
                 else if(array[x][y]==player2 && array[x][y+1]==openPlay && array[x][y+2]==player2 && array[x][y+3]==player2){
-                    total -= 6;
+                    openWorthPlayer2[x][y+1] = -6;
                 }
                 else if(array[x][y]==openPlay && array[x][y+1]==player2 && array[x][y+2]==player2 && array[x][y+3]==player2){
-                    total -= 6;
+                    openWorthPlayer2[x][y] = -6;
                 }
-                //2s
-                if(array[x][y]==player1 && array[x][y+1]==player1 && array[x][y+2]==openPlay && array[x][y+3]==openPlay){
-                    total += 3;
-                }
-                else if(array[x][y]==openPlay && array[x][y+1]==player1 && array[x][y+2]==player1 && array[x][y+3]==player1){
-                    total += 3;
-                }
-                else if(array[x][y]==openPlay && array[x][y+1]==openPlay && array[x][y+2]==player1 && array[x][y+3]==player1){
-                    total += 3;
-                }
-                else if(array[x][y]==player2 && array[x][y+1]==player2 && array[x][y+2]==openPlay && array[x][y+3]==openPlay){
-                    total -= 3;
-                }
-                else if(array[x][y]==openPlay && array[x][y+1]==player2 && array[x][y+2]==player2 && array[x][y+3]==player2){
-                    total -= 3;
-                }
-                else if(array[x][y]==openPlay && array[x][y+1]==openPlay && array[x][y+2]==player2 && array[x][y+3]==player2){
-                    total -= 3;
-                }
-
 
             }
         }
+
+        //vertical
+        for(int x=0; x<array.length-3; x++){
+            for(int y=0; y<array[0].length; y++){
+                if(array[x][y]==player1 && array[x+1][y]==player1 && array[x+2][y]==player1 && array[x+3][y]==openPlay){
+                    openWorthPlayer1[x+3][y] = 6;
+                }
+                else if(array[x][y]==player1 && array[x+1][y]==player1 && array[x+2][y]==openPlay && array[x+3][y]==player1){
+                    openWorthPlayer1[x+2][y] = 6;
+                }
+                else if(array[x][y]==player1 && array[x+1][y]==openPlay && array[x+2][y]==player1 && array[x+3][y]==player1){
+                    openWorthPlayer1[x+1][y] = 6;
+                }
+                else if(array[x][y]==openPlay && array[x+1][y]==player1 && array[x+2][y]==player1 && array[x+3][y]==player1){
+                    openWorthPlayer1[x][y] = 6;
+                }
+                else if(array[x][y]==player2 && array[x+1][y]==player2 && array[x+2][y]==player2 && array[x+3][y]==openPlay){
+                    openWorthPlayer2[x+3][y] = -6;
+                }
+                else if(array[x][y]==player2 && array[x+1][y]==player2 && array[x+2][y]==openPlay && array[x+3][y]==player2){
+                    openWorthPlayer2[x+2][y] = -6;
+                }
+                else if(array[x][y]==player2 && array[x+1][y]==openPlay && array[x+2][y]==player2 && array[x+3][y]==player2){
+                    openWorthPlayer2[x+1][y] = -6;
+                }
+                else if(array[x][y]==openPlay && array[x+1][y]==player2 && array[x+2][y]==player2 && array[x+3][y]==player2){
+                    openWorthPlayer2[x][y] = -6;
+                }
+            }
+        }
+
+        for(int x=0; x<openWorthPlayer1.length; x++){
+            for(int y=0; y<openWorthPlayer1[0].length; y++){
+                total += openWorthPlayer1[x][y];
+                total += openWorthPlayer2[x][y];
+            }
+        }
+
         return total;
     }
 
