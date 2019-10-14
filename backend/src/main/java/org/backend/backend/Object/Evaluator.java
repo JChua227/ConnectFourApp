@@ -31,7 +31,7 @@ public class Evaluator {
         }
     }
 
-    //TODO: Create different methods and add it to totalValue
+    //TODO: need to evaluate twoSet method ex: [1,1,0,0], [1,0,0,1], [1,0,1,0] etc. for stronger evaluation
     public int evaluateState(Move move){
         int totalValue = 0;
         totalValue += spotsTaken(move.getGameState());
@@ -53,16 +53,15 @@ public class Evaluator {
         return sumOfAllSpots;
     }
 
-    //TODO: horizontal 2's, all of vertical, all of diagonals
+
     public int threeSet(int [][]array){
+        int openPlay = 0;
         int player1 = 1;
         int player2 = 2;
-        int openPlay = 0;
         int total = 0;
 
         int [][]openWorthPlayer1 = new int[array.length][array[0].length];
         int [][]openWorthPlayer2 = new int[array.length][array[0].length];
-
         //horizontal
         for(int x=0; x<array.length; x++){
             for(int y=0; y<array[0].length-3; y++){
@@ -119,6 +118,66 @@ public class Evaluator {
                     openWorthPlayer2[x+1][y] = -6;
                 }
                 else if(array[x][y]==openPlay && array[x+1][y]==player2 && array[x+2][y]==player2 && array[x+3][y]==player2){
+                    openWorthPlayer2[x][y] = -6;
+                }
+            }
+        }
+
+        //ascending diagonal
+        for (int x=3; x<array.length; x++){
+            for (int y=0; y<array[0].length-3; y++){
+                if (array[x][y] == player1 && array[x-1][y+1] == player1 && array[x-2][y+2] == player1 && array[x-3][y+3] == openPlay){
+                    openWorthPlayer1[x-3][y+3] = 6;
+                }
+                else if (array[x][y] == player1 && array[x-1][y+1] == player1 && array[x-2][y+2] == openPlay && array[x-3][y+3] == player1){
+                    openWorthPlayer1[x-2][y+2] = 6;
+                }
+                else if (array[x][y] == player1 && array[x-1][y+1] == openPlay && array[x-2][y+2] == player1 && array[x-3][y+3] == player1){
+                    openWorthPlayer1[x-1][y+1] = 6;
+                }
+                else if (array[x][y] == openPlay && array[x-1][y+1] == player1 && array[x-2][y+2] == player1 && array[x-3][y+3] == player1){
+                    openWorthPlayer1[x][y] = 6;
+                }
+                else if (array[x][y] == player2 && array[x-1][y+1] == player2 && array[x-2][y+2] == player2 && array[x-3][y+3] == openPlay){
+                    openWorthPlayer2[x-3][y+3] = -6;
+                }
+                else if (array[x][y] == player2 && array[x-1][y+1] == player2 && array[x-2][y+2] == openPlay && array[x-3][y+3] == player2){
+                    openWorthPlayer2[x-2][y+2] = -6;
+                }
+                else if (array[x][y] == player2 && array[x-1][y+1] == openPlay && array[x-2][y+2] == player2 && array[x-3][y+3] == player2){
+                    openWorthPlayer2[x-1][y+1] = -6;
+                }
+                else if (array[x][y] == openPlay && array[x-1][y+1] == player2 && array[x-2][y+2] == player2 && array[x-3][y+3] == player2){
+                    openWorthPlayer2[x][y] = -6;
+                }
+            }
+        }
+
+        //descending diagonal
+        for (int x=3; x<array.length; x++){
+            for (int y=3; y<array[0].length; y++){
+                if (array[x][y] == player1 && array[x-1][y-1] == player1 && array[x-2][y-2] == player1 && array[x-3][y-3] == openPlay){
+                    openWorthPlayer1[x-3][y-3] = 6;
+                }
+                else if (array[x][y] == player1 && array[x-1][y-1] == player1 && array[x-2][y-2] == openPlay && array[x-3][y-3] == player1){
+                    openWorthPlayer1[x-2][y-2] = 6;
+                }
+                else if (array[x][y] == player1 && array[x-1][y-1] == openPlay && array[x-2][y-2] == player1 && array[x-3][y-3] == player1){
+                    openWorthPlayer1[x-1][y-1] = 6;
+                }
+                else if (array[x][y] == openPlay && array[x-1][y-1] == player1 && array[x-2][y-2] == player1 && array[x-3][y-3] == player1){
+                    openWorthPlayer1[x][y] = 6;
+                }
+                else if (array[x][y] == player2 && array[x-1][y-1] == player2 && array[x-2][y-2] == player2 && array[x-3][y-3] == openPlay){
+                    openWorthPlayer2[x-3][y-3] = -6;
+                }
+                else if (array[x][y] == player2 && array[x-1][y-1] == player2 && array[x-2][y-2] == openPlay && array[x-3][y-3] == player2){
+                    openWorthPlayer2[x-2][y-2] = -6;
+                }
+                else if (array[x][y] == player2 && array[x-1][y-1] == openPlay && array[x-2][y-2] == player2 && array[x-3][y-3] == player2){
+                    openWorthPlayer2[x-1][y-1] = -6;
+                }
+                else if (array[x][y] == openPlay && array[x-1][y-1] == player2 && array[x-2][y-2] == player2 && array[x-3][y-3] == player2){
                     openWorthPlayer2[x][y] = -6;
                 }
             }
