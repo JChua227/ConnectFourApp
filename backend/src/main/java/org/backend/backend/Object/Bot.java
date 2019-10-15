@@ -38,14 +38,14 @@ public class Bot {
             System.out.println("Player1 wins!");
             return new Move(true);
         }
-        else if(evaluator.gameIsFinished(this.move,3)){
+        else if(evaluator.gameIsFinished(this.move,2)){
             System.out.println("Player2 wins!");
             return new Move(false);
         }
 
         boolean playerTurn = checkPlayerTurn(this.move.getGameState());
         System.out.println(playerTurn);
-        return miniMax(this.move, this.depth, playerTurn,0,0);
+        return miniMax(this.move, this.depth, playerTurn,-999999999,999999999,0,0);
     }
 
     public boolean checkPlayerTurn(int [][]array){
@@ -63,7 +63,7 @@ public class Bot {
         return countOfTurns>0?false:true;
     }
 
-    public Move miniMax(Move move, int depth, boolean turn, int childX, int childY){
+    public Move miniMax(Move move, int depth, boolean turn, int alpha, int beta, int childX, int childY){
         int player = 1;
         if(!turn){
             player = 2;
@@ -88,9 +88,15 @@ public class Bot {
                     childX = states.get(x).getX();
                     childY = states.get(x).getY();
                 }
-                Move evaluation = miniMax(states.get(x),depth-1,!turn,childX,childY);
+                Move evaluation = miniMax(states.get(x),depth-1,!turn,alpha,beta,childX,childY);
                 if(maxEval.getRating()<evaluation.getRating()){
                     maxEval = evaluation;
+                }
+                if(alpha<evaluation.getRating()){
+                    alpha = evaluation.getRating();
+                }
+                if(alpha >= beta){
+                    break;
                 }
             }
             return maxEval;
@@ -102,9 +108,15 @@ public class Bot {
                     childX = states.get(x).getX();
                     childY = states.get(x).getY();
                 }
-                Move evaluation = miniMax(states.get(x),depth-1,!turn,childX,childY);
+                Move evaluation = miniMax(states.get(x),depth-1,!turn,alpha,beta,childX,childY);
                 if(minEval.getRating()>evaluation.getRating()){
                     minEval = evaluation;
+                }
+                if(beta>evaluation.getRating()){
+                    beta = evaluation.getRating();
+                }
+                if(alpha >= beta){
+                    break;
                 }
             }
             return minEval;
