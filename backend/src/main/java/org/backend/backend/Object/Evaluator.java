@@ -32,7 +32,6 @@ public class Evaluator {
     }
 
     //TODO: need to evaluate twoSet method ex: [1,1,0,0], [1,0,0,1], [1,0,1,0] etc. for stronger evaluation
-    //TODO: need to evaluate win state for each player
     public int evaluateState(Move move){
         int totalValue = 0;
         totalValue += spotsTaken(move.getGameState());

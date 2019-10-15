@@ -1,6 +1,5 @@
 package org.backend.backend.Object;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,11 +35,15 @@ public class Bot {
     public Move getDecision(){
         if(evaluator.gameIsFinished(this.move,1)){
             System.out.println("Player1 wins!");
-            return new Move(true);
+            return new Move(1);
         }
         else if(evaluator.gameIsFinished(this.move,2)){
             System.out.println("Player2 wins!");
-            return new Move(false);
+            return new Move(2);
+        }
+        else if(checkTie(this.move.getGameState())){
+            System.out.println("It's a tie!");
+            return new Move(0);
         }
 
         boolean playerTurn = checkPlayerTurn(this.move.getGameState());
@@ -63,6 +66,17 @@ public class Bot {
         return countOfTurns>0?false:true;
     }
 
+    public boolean checkTie(int [][]array){
+        for(int x=0; x<array.length; x++){
+            for(int y=0; y<array[0].length; y++){
+                if(array[x][y]==0){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
     public Move miniMax(Move move, int depth, boolean turn, int alpha, int beta, int childX, int childY){
         int player = 1;
         if(!turn){
@@ -74,6 +88,9 @@ public class Bot {
         }
         else if(evaluator.gameIsFinished(move,2)){
             return new Move(move.getGameState(),-100000,childX,childY);
+        }
+        else if(checkTie(move.getGameState())){
+            return new Move(move.getGameState(),0,childX,childY,0);
         }
         else if(depth==0){
             return evaluatePosition(move,childX,childY);
@@ -124,7 +141,6 @@ public class Bot {
 
     }
 
-    //TODO: evaluate each position
     public Move evaluatePosition(Move move, int childX, int childY){
         int rating = this.evaluator.evaluateState(move);
         return new Move(move.getGameState(),rating,childX,childY);

@@ -1,13 +1,20 @@
 package org.backend.backend.Object;
 
-
 public class Move {
 
     private int [][]gameState;
     private int rating;
     private int x;
     private int y;
-    private boolean winner;
+    private int winner;
+
+    public Move(int [][]gameState, int rating, int x, int y, int winner){
+        this.gameState = gameState;
+        this.rating = rating;
+        this.x = x;
+        this.y = y;
+        this.winner = winner;
+    }
 
     public Move(int [][]gameState, int rating, int x, int y){
         this.gameState = gameState;
@@ -31,7 +38,7 @@ public class Move {
         this.gameState = gameState;
     }
 
-    public Move(boolean winner){
+    public Move(int winner){
         this.winner = winner;
     }
 
@@ -63,3 +70,4 @@ public class Move {
         this.y = y;
     }
 }
+
