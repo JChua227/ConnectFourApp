@@ -32,12 +32,13 @@ public class Evaluator {
         }
     }
 
-    //twoSet function does not seen to have a huge impact in decision
+
     public int evaluateState(Move move){
         int totalValue = 0;
         totalValue += spotsTaken(move.getGameState());
-        totalValue += twoSet(move.getGameState());
         totalValue += threeSet(move.getGameState());
+        //twoSet evaluation seems to worsen decision making
+        /*totalValue += twoSet(move.getGameState());*/
         return totalValue;
     }
 
