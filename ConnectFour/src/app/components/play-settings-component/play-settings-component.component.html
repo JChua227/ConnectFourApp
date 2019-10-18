@@ -1,0 +1,12 @@
+<div>
+  <p>Level</p>
+  <form (ngSubmit)='generateGame()'>
+  <select name='level' [(ngModel)]='level'>
+      <option value="3">Easy</option>
+      <option value="5">Medium</option>
+      <option value="10">Hard</option>
+  </select>
+    
+  <a><input type='submit' value='Play'></a>
+  </form>
+</div>
