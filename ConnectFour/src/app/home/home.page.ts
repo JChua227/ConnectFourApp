@@ -14,4 +14,12 @@ export class HomePage {
   public goToPlaySettings(){
     this.router.navigate(['/play-settings']);
   }
+
+  public goToSettings(){
+    this.router.navigate(['/settings']);
+  }
+
+  public goToAbout(){
+    this.router.navigate(['/about']);
+  }
 }

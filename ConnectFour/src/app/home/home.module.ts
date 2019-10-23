@@ -4,6 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { NavbarModule } from '../components/navbar/navbar.module';
+import { MatButtonModule } from '@angular/material/button';
 
 import { HomePage } from './home.page';
 
@@ -13,6 +14,7 @@ import { HomePage } from './home.page';
     FormsModule,
     IonicModule,
     NavbarModule,
+    MatButtonModule,
     RouterModule.forChild([
       {
         path: '',

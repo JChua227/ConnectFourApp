@@ -8,10 +8,21 @@
 
 <ion-content>
   <div class="ion-padding">
-    <a href='/play-settings'><input type='button' value='Play' (click)='goToPlaySettings()'></a>
+    <div>
+      <button (click)='goToPlaySettings()' mat-raised-button color="primary">Play</button>
+    </div>
+
     <br>
-    <a href='/settings'><input type='button' value='Settings'></a>
+
+    <div>
+      <button (click)='goToSettings()' mat-raised-button color="primary">Settings</button>
+    </div>
+
     <br>
-    <a href='/about'><input type='button' value='About'></a>
+
+    <div>
+      <button (click)='goToAbout()' mat-raised-button color="primary">About</button>
+    </div>
   </div>
+  
 </ion-content>
