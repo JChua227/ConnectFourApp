@@ -1,12 +1,18 @@
 <div>
-  <p>Level</p>
-  <form (ngSubmit)='generateGame()'>
-  <select name='level' [(ngModel)]='level'>
-      <option value="3">Easy</option>
-      <option value="5">Medium</option>
-      <option value="10">Hard</option>
-  </select>
-    
-  <button type='submit' (click)='goToHomePage()' mat-raised-button color="primary">Back To Home</button>
-  </form>
+
+  <div class='level'>
+  <mat-form-field>
+    <mat-label value='0'>Level</mat-label>
+    <mat-select [(value)]='level'>
+      <mat-option value='3'>Easy</mat-option>
+      <mat-option value='5'>Medium</mat-option>
+      <mat-option value='10'>Hard</mat-option>
+    </mat-select>
+  </mat-form-field>
+  </div>
+
+
+
+  
+  <button (click)='generateGame()' mat-raised-button color="primary">Play</button>
 </div>

@@ -8,6 +8,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { PlaySettingsPage } from './play-settings.page';
 import { PlaySettingsComponentComponent } from '../../components/play-settings-component/play-settings-component.component';
+import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 
 const routes: Routes = [
   {
@@ -22,6 +24,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     NavbarModule,
+    MatButtonModule,
+    MatSelectModule,
     RouterModule.forChild(routes)
   ],
   declarations: [PlaySettingsPage,PlaySettingsComponentComponent]

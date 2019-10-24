@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatButtonModule } from '@angular/material/button';
+
 
 @Component({
   selector: 'app-play-settings-component',
@@ -18,6 +18,8 @@ export class PlaySettingsComponentComponent implements OnInit {
 
   public generateGame(){
     console.log(this.level);
-    this.router.navigate(['/connect-four-game']);
+    if(this.level!==undefined){
+      this.router.navigate(['/connect-four-game']);
+    }
   } 
 }
