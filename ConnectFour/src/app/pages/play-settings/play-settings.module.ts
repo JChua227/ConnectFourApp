@@ -10,6 +10,8 @@ import { PlaySettingsPage } from './play-settings.page';
 import { PlaySettingsComponentComponent } from '../../components/play-settings-component/play-settings-component.component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 const routes: Routes = [
   {
@@ -26,6 +28,8 @@ const routes: Routes = [
     NavbarModule,
     MatButtonModule,
     MatSelectModule,
+    ReactiveFormsModule,
+    MatCheckboxModule,
     RouterModule.forChild(routes)
   ],
   declarations: [PlaySettingsPage,PlaySettingsComponentComponent]

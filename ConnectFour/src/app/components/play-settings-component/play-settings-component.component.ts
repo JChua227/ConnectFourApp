@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormControl } from '@angular/forms';
 
 
 @Component({
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 export class PlaySettingsComponentComponent implements OnInit {
 
   private level:number;
+  disableSelect = new FormControl(false);
 
   constructor(private router:Router) { }
 
