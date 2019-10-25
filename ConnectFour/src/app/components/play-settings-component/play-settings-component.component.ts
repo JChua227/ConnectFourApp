@@ -11,16 +11,31 @@ import { FormControl } from '@angular/forms';
 export class PlaySettingsComponentComponent implements OnInit {
 
   private level:number;
-  disableSelect = new FormControl(false);
+  private disableSelect = new FormControl(false);
+  private row:number;
+  private column:number;
+  private standardGame:boolean = false;
 
   constructor(private router:Router) { }
 
   ngOnInit() {}
 
+  public setStandardGame(){
+    this.standardGame = !this.standardGame;
+    if(!this.standardGame){
+      this.row=undefined;
+      this.column=undefined;
+    }
+  }
 
   public generateGame(){
-    console.log(this.level);
     if(this.level!==undefined){
+      if(this.standardGame){
+      this.row = 6;
+      this.column = 7;
+      }
+    }
+    if(this.level!==undefined && this.row!==undefined && this.column!==undefined){
       this.router.navigate(['/connect-four-game']);
     }
   } 

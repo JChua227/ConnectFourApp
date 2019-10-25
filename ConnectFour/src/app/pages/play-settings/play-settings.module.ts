@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 
 const routes: Routes = [
   {
@@ -30,6 +31,7 @@ const routes: Routes = [
     MatSelectModule,
     ReactiveFormsModule,
     MatCheckboxModule,
+    MatRadioModule,
     RouterModule.forChild(routes)
   ],
   declarations: [PlaySettingsPage,PlaySettingsComponentComponent]

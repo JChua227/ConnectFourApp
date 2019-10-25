@@ -3,25 +3,53 @@
   <div class='level'>
   <mat-form-field>
     <mat-label value='0'>Level</mat-label>
-    <mat-select [(value)]='level'>
-      <mat-option value='3'>Easy</mat-option>
+    <mat-select [(value)]='level' required>
+      <mat-option value='2'>Easy</mat-option>
       <mat-option value='5'>Medium</mat-option>
       <mat-option value='10'>Hard</mat-option>
     </mat-select>
+    <mat-error *ngIf='this.level===undefined'>Please Select A Level</mat-error>
   </mat-form-field>
   </div>
 
+  <div class='playerOption'>
+    <mat-radio-group aria-label='Select an option'>
+      <div>
+          <mat-radio-button value=1 checked>Player 1</mat-radio-button>
+      </div>
+      <br>
+      <div>
+          <mat-radio-button value='2'>Player 2</mat-radio-button>
+      </div>
+    </mat-radio-group>
+  </div>
+
   <p>
-    <mat-checkbox [formControl]="disableSelect">Standard Game (7x6)</mat-checkbox>
+    <mat-checkbox [formControl]='disableSelect' (click)='setStandardGame()'>Standard Game (6x7)</mat-checkbox>
   </p>
 
   <div>
     <mat-form-field>
-      <mat-label>Choose an option</mat-label>
-      <mat-select [disabled]="disableSelect.value">
-        <mat-option value="option1">Option 1</mat-option>
-        <mat-option value="option2" disabled>Option 2 (disabled)</mat-option>
-        <mat-option value="option3">Option 3</mat-option>
+      <mat-label>Custom Rows</mat-label>
+      <mat-select [disabled]='disableSelect.value' required [(value)]='row'>
+        <mat-option value='5'>5</mat-option>
+        <mat-option value='6'>6</mat-option>
+        <mat-option value='7'>7</mat-option>
+        <mat-option value='8'>8</mat-option>
+        <mat-option value='9'>9</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div>
+    <mat-form-field>
+      <mat-label>Custom Columns</mat-label>
+      <mat-select [disabled]='disableSelect.value' required [(value)]='column'>
+        <mat-option value='5'>5</mat-option>
+        <mat-option value='6'>6</mat-option>
+        <mat-option value='7'>7</mat-option>
+        <mat-option value='8'>8</mat-option>
+        <mat-option value='9'>9</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
