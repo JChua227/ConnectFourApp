@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { MatRadioModule } from '@angular/material/radio';
   providers: [
     StatusBar,
     SplashScreen,
+    CookieService,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

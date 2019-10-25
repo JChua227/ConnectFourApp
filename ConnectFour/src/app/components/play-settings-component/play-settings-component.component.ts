@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
+import { CookieService } from 'ngx-cookie-service';
 
 
 @Component({
@@ -17,7 +18,7 @@ export class PlaySettingsComponentComponent implements OnInit {
   private standardGame:boolean = false;
   private player:number = 1;
 
-  constructor(private router:Router) { }
+  constructor(private router:Router, private cookieService:CookieService) { }
 
   ngOnInit() {}
 
@@ -36,7 +37,12 @@ export class PlaySettingsComponentComponent implements OnInit {
       this.column = 7;
       }
     }
+    
     if(this.level!==undefined && this.row!==undefined && this.column!==undefined){
+      this.cookieService.set('level',this.level.toString());
+      this.cookieService.set('row',this.row.toString());
+      this.cookieService.set('column',this.column.toString());
+      this.cookieService.set('player',this.player.toString());
       this.router.navigate(['/connect-four-game']);
     }
   } 

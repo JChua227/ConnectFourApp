@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-connect-four-game-component',
@@ -7,8 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ConnectFourGameComponentComponent implements OnInit {
 
-  constructor() { }
+  private board:number[][];
+  private row:number;
+  private column:number;
 
-  ngOnInit() {}
+  constructor(private cookieService:CookieService) { }
+
+  ngOnInit() {
+    
+    this.row = parseInt(this.cookieService.get('row'));
+    this.column = parseInt(this.cookieService.get('column'));
+  }
 
 }
