@@ -15,11 +15,11 @@
   <div class='playerOption'>
     <mat-radio-group aria-label='Select an option'>
       <div>
-          <mat-radio-button value=1 checked>Player 1</mat-radio-button>
+          <mat-radio-button value=1 (click)='switchPlayer(1)' checked>Player 1</mat-radio-button>
       </div>
       <br>
       <div>
-          <mat-radio-button value='2'>Player 2</mat-radio-button>
+          <mat-radio-button value='2' (click)='switchPlayer(2)'>Player 2</mat-radio-button>
       </div>
     </mat-radio-group>
   </div>

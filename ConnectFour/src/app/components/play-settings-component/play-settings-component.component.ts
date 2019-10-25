@@ -15,6 +15,7 @@ export class PlaySettingsComponentComponent implements OnInit {
   private row:number;
   private column:number;
   private standardGame:boolean = false;
+  private player:number = 1;
 
   constructor(private router:Router) { }
 
@@ -39,4 +40,8 @@ export class PlaySettingsComponentComponent implements OnInit {
       this.router.navigate(['/connect-four-game']);
     }
   } 
+
+  public switchPlayer(player){
+    this.player = player;
+  }
 }
