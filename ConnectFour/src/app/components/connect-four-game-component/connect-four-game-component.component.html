@@ -1,5 +1,9 @@
 <div>
-  <div>
-    <p>{{row}} x {{column}}</p>
+  <div *ngFor='let x of board; let i = index'>
+    <div *ngFor='let y of board[0]; let j = index' style='display:inline'>
+      <p style="display:inline" (click)='insertColumn(i,j)'> ({{ i }},{{j}}) </p>
+    </div>
   </div>
+ 
+
 </div>
