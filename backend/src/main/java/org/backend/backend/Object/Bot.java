@@ -84,10 +84,10 @@ public class Bot {
         }
 
         if(evaluator.gameIsFinished(move,1)){
-            return new Move(move.getGameState(),100000,childX,childY);
+            return new Move(depth,move.getGameState(),100000,childX,childY);
         }
         else if(evaluator.gameIsFinished(move,2)){
-            return new Move(move.getGameState(),-100000,childX,childY);
+            return new Move(depth,move.getGameState(),-100000,childX,childY);
         }
         else if(checkTie(move.getGameState())){
             return new Move(move.getGameState(),0,childX,childY,0);
@@ -106,7 +106,10 @@ public class Bot {
                     childY = states.get(x).getY();
                 }
                 Move evaluation = miniMax(states.get(x),depth-1,!turn,alpha,beta,childX,childY);
-                if(maxEval.getRating()<evaluation.getRating()){
+                if(maxEval.getRating()==evaluation.getRating() && maxEval.getDepth()<evaluation.getDepth()){
+                    maxEval = evaluation;
+                }
+                else if(maxEval.getRating()<evaluation.getRating()){
                     maxEval = evaluation;
                 }
                 if(alpha<evaluation.getRating()){
@@ -126,7 +129,10 @@ public class Bot {
                     childY = states.get(x).getY();
                 }
                 Move evaluation = miniMax(states.get(x),depth-1,!turn,alpha,beta,childX,childY);
-                if(minEval.getRating()>evaluation.getRating()){
+                if(minEval.getRating()==evaluation.getRating() && minEval.getDepth()<evaluation.getDepth()){
+                    minEval = evaluation;
+                }
+                else if(minEval.getRating()>evaluation.getRating()){
                     minEval = evaluation;
                 }
                 if(beta>evaluation.getRating()){
