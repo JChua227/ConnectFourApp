@@ -37,10 +37,75 @@ public class Evaluator {
         int totalValue = 0;
         totalValue += spotsTaken(move.getGameState());
         totalValue += threeSet(move.getGameState());
+
+        //numberOfAvailableWins could be used to improve future heuristic
+        /* totalValue += numberOfAvailableWins(move.getGameState()); */
+
         //twoSet evaluation seems to worsen decision making
         /*totalValue += twoSet(move.getGameState());*/
         return totalValue;
     }
+
+
+    public static int numberOfAvailableWins(int [][]array){
+        int openPlay = 0;
+        int player1 = 1;
+        int player2 = 2;
+        int total = 0;
+
+        //horizontal
+        for(int x=0; x<array.length; x++){
+            for(int y=0; y<array[0].length-3; y++){
+                if((array[x][y]==player1 || array[x][y]==openPlay) && (array[x][y+1]==player1 || array[x][y+1]==openPlay) && (array[x][y+2]==player1 || array[x][y+2]==openPlay) && (array[x][y+3]==player1 || array[x][y+3]==openPlay)){
+                    total += 1;
+                }
+                if((array[x][y]==player2 || array[x][y]==openPlay) && (array[x][y+1]==player2 || array[x][y+1]==openPlay) && (array[x][y+2]==player2 || array[x][y+2]==openPlay) && (array[x][y+3]==player2 || array[x][y+3]==openPlay)){
+                    total -= 1;
+                }
+            
+                
+            }
+        }
+
+        //vertical
+        for(int x=0; x<array.length-3; x++){
+            for(int y=0; y<array[0].length; y++){
+                if((array[x][y]==player1 || array[x][y]==openPlay) && (array[x+1][y]==player1  || array[x+1][y]==openPlay) && (array[x+2][y]==player1 || array[x+2][y]==openPlay) && (array[x+3][y]==player1 || array[x+3][y]==openPlay)){
+                    total += 1;
+                }
+                if((array[x][y]==player2 || array[x][y]==openPlay) && (array[x+1][y]==player2  || array[x+1][y]==openPlay) && (array[x+2][y]==player2 || array[x+2][y]==openPlay) && (array[x+3][y]==player2 || array[x+3][y]==openPlay)){
+                    total -= 1;
+                }
+            }
+        }
+
+        //ascending diagonal
+        for (int x=3; x<array.length; x++){
+            for (int y=0; y<array[0].length-3; y++){
+                if ((array[x][y]==player1 || array[x][y]==openPlay) && (array[x-1][y+1] == player1 || array[x-1][y+1]==openPlay) && (array[x-2][y+2]==player1 || array[x-2][y+3]==openPlay) && (array[x-3][y+3]==player1 || array[x-3][y+3]==openPlay)){
+                    total += 1;
+                }
+                if ((array[x][y]==player2 || array[x][y]==openPlay) && (array[x-1][y+1] == player2 || array[x-1][y+1]==openPlay) && (array[x-2][y+2]==player2 || array[x-2][y+3]==openPlay) && (array[x-3][y+3]==player2 || array[x-3][y+3]==openPlay)){
+                    total -= 1;
+                }
+            }
+        }
+
+        //descending diagonal
+        for (int x=3; x<array.length; x++){
+            for (int y=3; y<array[0].length; y++){
+                if ((array[x][y]==player1 || array[x][y]==openPlay) && (array[x-1][y-1]==player1 || array[x-1][y-1]==openPlay) && (array[x-2][y-2]==player1 || array[x-2][y-2]==openPlay) && (array[x-3][y-3]==player1 || array[x-3][y-3]==openPlay)){
+                    total +=1;
+                }
+                if ((array[x][y]==player2 || array[x][y]==openPlay) && (array[x-1][y-1]==player2 || array[x-1][y-1]==openPlay) && (array[x-2][y-2]==player2 || array[x-2][y-2]==openPlay) && (array[x-3][y-3]==player2 || array[x-3][y-3]==openPlay)){
+                    total -=1;
+                }
+            }
+        }
+
+        return total;
+    }
+
 
     public int spotsTaken(int [][]state){
         int sumOfAllSpots = 0;
