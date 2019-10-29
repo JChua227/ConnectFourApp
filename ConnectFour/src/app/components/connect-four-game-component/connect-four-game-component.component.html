@@ -1,8 +1,13 @@
-<div>
+<div class='gameComponent'>
   <div *ngFor='let x of board; let i = index'>
     <div *ngFor='let y of board[0]; let j = index' style='display:inline'>
-      <p style="display:inline" (click)='insertColumn(i,j)'> ({{ i }},{{j}}) </p>
+      <div style="display:inline" (click)='insertColumn(i,j)' class='block' id='{{i}}-{{j}}'> ({{i}},{{j}}) </div>
+      <!-- <script>
+        document.getElementById('{{i}}-{{j}}').style.width = '120%';
+      </script> -->
     </div>
+    <br>
+    <br>
   </div>
  
 

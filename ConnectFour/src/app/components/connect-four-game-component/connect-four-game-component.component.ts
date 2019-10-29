@@ -14,30 +14,57 @@ export class ConnectFourGameComponentComponent implements OnInit {
   private column:number;
   private playerTurn:boolean = true;
 
-  private tempColumn;
-  
-
   constructor(private cookieService:CookieService) { 
-    this.board = new Array();
-    this.row = parseInt(this.cookieService.get('row'));
-    this.column = parseInt(this.cookieService.get('column'));
-    this.createBoard();
-  }
-
-  ngOnInit() {
     
   }
 
-  public createBoard(){
-    this.tempColumn= new Array(this.column).fill(0);
-
-    for(let x=0; x<this.row; x++){
-      this.board.push(this.tempColumn);
-    }
+  ngOnInit() {
+    this.row = parseInt(this.cookieService.get('row'));
+    this.column = parseInt(this.cookieService.get('column'));
+    this.fillBoard();
   }
 
-  public insertColumn(x,y){
+  public fillBoard(){
+    let tempBoard = new Array();
+    for(let x=0; x<this.row; x++){
+      let tempColumn = new Array(this.column);
+      for(let x=0; x<this.column; x++){
+        tempColumn[x]=0;
+      }
+      tempBoard.push(tempColumn);
+    }
+  
+    this.board = tempBoard;
+  }
+
+  public insertColumn(x:number,y:number){
     console.log(x + " " + y);
+    
+    let counter=this.board.length-1;
+    for(let row=this.board.length-1; row>-1; row--){
+      counter=row;
+      if(this.board[row][y]==0){
+        break;
+      }
+    }
+
+    if(this.board[counter][y]!=0){
+      return;
+    }
+    
+    if(this.playerTurn){
+      this.board[counter][y] = 1;
+      document.getElementById(counter + '-' + y).innerHTML = 1 + '';
+      console.log(counter + ' ' + y);
+    }
+    else{
+      this.board[counter][y] = 2;
+      document.getElementById(counter + '-' + y).innerHTML = 2 + '';
+      console.log(counter + ' ' + y);
+    }
+
+    console.log(this.board);
+    this.playerTurn = !this.playerTurn;
   }
 
 }
