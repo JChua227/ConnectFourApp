@@ -7,7 +7,6 @@ public class Move {
     private int x;
     private int y;
     private int winner;
-    private int depth;
 
     public Move(int [][]gameState, int rating, int x, int y, int winner){
         this.gameState = gameState;
@@ -15,14 +14,6 @@ public class Move {
         this.x = x;
         this.y = y;
         this.winner = winner;
-    }
-
-    public Move(int depth,int [][]gameState, int rating, int x, int y){
-        this.gameState = gameState;
-        this.rating = rating;
-        this.x = x;
-        this.y = y;
-        this.depth = depth;
     }
 
     public Move(int [][]gameState, int rating, int x, int y){
@@ -79,7 +70,4 @@ public class Move {
         this.y = y;
     }
 
-    public int getDepth(){
-        return this.depth;
-    }
 }
