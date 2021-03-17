@@ -84,10 +84,10 @@ public class Bot {
         }
 
         if(evaluator.gameIsFinished(move,1)){
-            return new Move(move.getGameState(),100000,childX,childY);
+            return new Move(move.getGameState(),100000+depth,childX,childY);
         }
         else if(evaluator.gameIsFinished(move,2)){
-            return new Move(move.getGameState(),-100000,childX,childY);
+            return new Move(move.getGameState(),-100000-depth,childX,childY);
         }
         else if(checkTie(move.getGameState())){
             return new Move(move.getGameState(),0,childX,childY,0);
